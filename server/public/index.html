@@ -8,7 +8,38 @@
     <script src="vendors/angular.js"></script>
     <script src="scripts/client.js"></script>
 </head>
-<body>
-    <h1>To-Do List</h1>
+<body ng-app="todoApp">
+    <div class="container" ng-controller="TodoController as vm">
+        <header>
+            <h1>To-Do List</h1>
+        </header>
+        <h3>Create New Task</h3>
+        <!-- input fields -->
+        <input type="text" placeholder="Task" ng-model="vm.newTodo.task">
+        <input type="text" placeholder="Location" ng-model="vm.newTodo.location">
+        <input type="text" placeholder="Additional Notes" ng-model="vm.newTodo.notes">
+        <button>Create New Task</button>
+        <br>
+        <br>
+        <hr>
+        <h3>All Created Tasks</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Location</th>
+                    <th>Notes</th>
+                    <th>Mark Complete</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
 </body>
 </html>

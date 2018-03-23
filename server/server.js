@@ -8,7 +8,8 @@ const todoRouter = require('./routes/todo.routes');
 const databaseURL = 'mongodb://localhost:27017/hadar';
 //app.uses
 app.use(bodyParser.json());
-app.use('/todo', todoRouter)
+app.use('/todo', todoRouter);
+app.use(express.static('server/public'));
 app.listen(PORT, () => {
     console.log('listening on port', PORT);
 });
