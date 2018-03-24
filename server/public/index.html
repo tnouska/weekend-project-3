@@ -18,7 +18,7 @@
         <input type="text" placeholder="Task" ng-model="vm.newTodo.task">
         <input type="text" placeholder="Location" ng-model="vm.newTodo.location">
         <input type="text" placeholder="Additional Notes" ng-model="vm.newTodo.notes">
-        <button>Create New Task</button>
+        <button ng-click="vm.addTask(vm.newTodo)">Create New Task</button>
         <br>
         <br>
         <hr>
@@ -29,13 +29,17 @@
                     <th>Task</th>
                     <th>Location</th>
                     <th>Notes</th>
-                    <th>Mark Complete</th>
+                    <th>Mark Completed</th>
                     <th>Remove</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
+                <tr ng-repeat="task in vm.todoArray">
+                    <td>{{task.task}}</td>
+                    <td>{{task.location}}</td>
+                    <td>{{task.notes}}</td>
+                    <td><button ng-click="vm.markComplete(task._id, !task.completed)">Mark Complete</button></td>
+                    <td><button ng-click="vm.deleteTask(task._id)">Remove</button></td>
                 </tr>
             </tbody>
         </table>
