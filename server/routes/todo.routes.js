@@ -8,6 +8,7 @@ let todoSchema = new Schema({
     task: {type: String},
     location: {type: String},
     notes: {type: String},
+    catagory: {type: String},
     completed: {type: Boolean}
 });
 const Todo = mongoose.model('Todo', todoSchema);

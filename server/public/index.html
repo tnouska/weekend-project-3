@@ -4,21 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
-    <link rel="stylesheet" href="styles/styles.css">
     <script src="vendors/angular.js"></script>
+    <script src="vendors/angular-route.min.js"></script>
+    <!-- angular material -->
+    <link rel="stylesheet" href="vendors/angular-material.css">
+    <script src="vendors/angular-aria.min.js"></script>
+    <script src="vendors/angular-animate.min.js"></script>
+    <!-- <script src="vendors/angular-messages.min.js"></script> -->
+    <script src="vendors/angular-material.min.js"></script>
+    <!-- client side -->
     <script src="scripts/client.js"></script>
+    <script src="scripts/material.controller.js"></script>
+    <script src="vendors/sweetalert.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
 </head>
-<body ng-app="todoApp">
+<body ng-app="todoApp" layout="column">
     <div class="container" ng-controller="TodoController as vm">
-        <header>
+        <md-toolbar>
             <h1>To-Do List</h1>
-        </header>
+        </md-toolbar>
         <h3>Create New Task</h3>
         <!-- input fields -->
-        <input type="text" placeholder="Task" ng-model="vm.newTodo.task">
-        <input type="text" placeholder="Location" ng-model="vm.newTodo.location">
-        <input type="text" placeholder="Additional Notes" ng-model="vm.newTodo.notes">
-        <button ng-click="vm.addTask(vm.newTodo)">Create New Task</button>
+        <form>
+            <input type="text" placeholder="Task" ng-model="vm.newTodo.task" required>
+            <input type="text" placeholder="Location" ng-model="vm.newTodo.location">
+            <input type="text" placeholder="Additional Notes" ng-model="vm.newTodo.notes">
+            <select ng-model="vm.newTodo.catagory" required>
+                <option value="">--Choose Catagory--</option> <!-- not selected / blank option -->
+                <option value="Home">Home</option>
+                <option value="School">School</option>
+                <option value="Work">Work</option> 
+                <option value="Other">Other</option>
+            </select>
+            <button>test</button>
+            <button ng-click="vm.addTask(vm.newTodo)">Create New Task</button>
+        </form>
         <br>
         <br>
         <hr>
@@ -26,20 +49,30 @@
         <table>
             <thead>
                 <tr>
+                    <th></th>
                     <th>Task</th>
                     <th>Location</th>
                     <th>Notes</th>
-                    <th>Mark Completed</th>
                     <th>Remove</th>
+                    <th>Catagory</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="task in vm.todoArray">
-                    <td>{{task.task}}</td>
+            <span>Filter: </span><select ng-model="searchedCatagory">
+                <option value=""/option> <!-- not selected / blank option -->
+                <option value="Home">Home</option>
+                <option value="School">School</option>
+                <option value="Work">Work</option>
+                <option value="Other">Other</option>
+            </select> 
+                <tr ng-class="{completed: task.completed}"ng-repeat="task in vm.todoArray |orderBy : 'completed'| filter:{catagory:searchedCatagory}">
+                    <td><md-button ng-click="vm.markComplete(task._id, !task.completed)">Finished</md-button></td>
+                    <td >{{task.task}}</td>
                     <td>{{task.location}}</td>
                     <td>{{task.notes}}</td>
-                    <td><button ng-click="vm.markComplete(task._id, !task.completed)">Mark Complete</button></td>
-                    <td><button ng-click="vm.deleteTask(task._id)">Remove</button></td>
+                    <td>{{task.completed}}</td>
+                    <td>{{task.catagory}}</td>
+                    <td><md-button mat-raised-button ng-click="vm.deleteTask(task._id)">Remove</md-button></td>
                 </tr>
             </tbody>
         </table>

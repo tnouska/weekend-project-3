@@ -1,12 +1,19 @@
-let todoApp = angular.module('todoApp', []);
+let todoApp = angular.module('todoApp', ['ngMaterial']);
 todoApp.controller('TodoController', ['$http', function ($http) {
     let self = this;
     self.todoArray = [];
 
     self.addTask = function (newTask) {
         console.log('newTask inside of addTask: ', newTask);
-        newTask.completed = false;
-        $http({
+        if (newTask === undefined) {
+            console.log('task not entered.');
+        }else if (newTask.task === undefined){
+            console.log('task not entered.');
+        }else if(newTask.catagory === undefined){
+            console.log('must select catagory');
+        }else{
+            newTask.completed = false;
+            $http({
             method: 'POST',
             url: '/todo',
             data: newTask
@@ -16,18 +23,36 @@ todoApp.controller('TodoController', ['$http', function ($http) {
         }).catch(function (err) {
             console.log('error in addTask: ', err);
         })
+   
+        }
     }
     self.deleteTask = function (taskId) {
-        $http({
-            method: 'DELETE',
-            url: '/todo/' + taskId
-        }).then(function (response) {
-            console.log('Delete Completed');
-            self.getTasks();
-        }).catch(function (error) {
-            console.log('error in deleteTask: ',error);
-            
+        swal({
+            title: "Are you sure?",
+            text: "This will be deleted forever.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
         })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Your task has been forever deleted.", {
+                        icon: "success",
+                    });
+                    $http({
+                        method: 'DELETE',
+                        url: '/todo/' + taskId
+                    }).then(function (response) {
+                        console.log('Delete Completed');
+                        self.getTasks();
+                    }).catch(function (error) {
+                        console.log('error in deleteTask: ', error);
+                    })
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+
     }
     self.getTasks = function () {
         $http({
