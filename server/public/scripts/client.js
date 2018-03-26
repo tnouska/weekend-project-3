@@ -22,10 +22,10 @@ todoApp.controller('TodoController', ['$http', function ($http) {
             self.getTasks();
         }).catch(function (err) {
             console.log('error in addTask: ', err);
-        })
+        });
    
         }
-    }
+    };
     self.deleteTask = function (taskId) {
         swal({
             title: "Are you sure?",
@@ -47,13 +47,13 @@ todoApp.controller('TodoController', ['$http', function ($http) {
                         self.getTasks();
                     }).catch(function (error) {
                         console.log('error in deleteTask: ', error);
-                    })
+                    });
                 } else {
                     swal("Your task has not changed.");
                 }
             });
 
-    }
+    };
     self.getTasks = function () {
         $http({
             method: 'GET',
@@ -63,8 +63,8 @@ todoApp.controller('TodoController', ['$http', function ($http) {
             self.todoArray = response.data;
         }).catch(function (error) {
             console.log('error in getTasks: ', error);
-        })
-    }
+        });
+    };
     self.markComplete = function (taskId, newStatus) {
         $http({
             method: 'PUT',
@@ -75,9 +75,9 @@ todoApp.controller('TodoController', ['$http', function ($http) {
         }).catch(function (err) {
             console.log('error inside of markComplete: ', err);
             
-        })
-    }
+        });
+    };
 
     self.getTasks();
-}])
+}]);
 

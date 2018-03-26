@@ -14,7 +14,7 @@ let todoSchema = new Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 router.delete('/:id', (req,res)=>{
-    let todoId = req.params.id
+    let todoId = req.params.id;
     Todo.findByIdAndRemove(todoId, (err, itemRemoved)=>{
         if (err) {
             console.log('error inside of todo.findbyidandremove: ', err);
@@ -22,8 +22,8 @@ router.delete('/:id', (req,res)=>{
         }else{
             res.sendStatus(200);
         }
-    })
-})
+    });
+});
 
 router.get('/', (req,res)=>{
     Todo.find({}, (err, foundTask)=>{
@@ -33,12 +33,12 @@ router.get('/', (req,res)=>{
         }else{
             res.send(foundTask);
         }
-    })
-})
+    });
+});
 router.post('/', (req,res)=>{
     console.log('req.body inside of router.post: ', req.body);
-    let taskObject = req.body
-    let taskToAdd = new Todo(taskObject)
+    let taskObject = req.body;
+    let taskToAdd = new Todo(taskObject);
     taskToAdd.save((err, savedTask)=>{
         if (err) {
             console.log('error inside of taskToAdd.save: ', err);
@@ -47,9 +47,9 @@ router.post('/', (req,res)=>{
             console.log('the saved task: ', savedTask);
             res.sendStatus(200);
         }
-    })
+    });
     
-})
+});
 router.put('/:id', (req,res)=>{
     let taskId = req.params.id;
     let updates = req.body;
@@ -60,8 +60,8 @@ router.put('/:id', (req,res)=>{
         }else{
             res.sendStatus(200);
         }
-    })
-})
+    });
+});
 
 module.exports = router;
 //end of file
