@@ -26,57 +26,79 @@
         <md-toolbar>
             <h1>To-Do List</h1>
         </md-toolbar>
-        <h3>Create New Task</h3>
-        <!-- input fields -->
-        <form>
-            <input type="text" placeholder="Task" ng-model="vm.newTodo.task" required>
-            <input type="text" placeholder="Location" ng-model="vm.newTodo.location">
-            <input type="text" placeholder="Additional Notes" ng-model="vm.newTodo.notes">
-            <select ng-model="vm.newTodo.catagory" required>
-                <option value="">--Choose Catagory--</option> <!-- not selected / blank option -->
-                <option value="Home">Home</option>
-                <option value="School">School</option>
-                <option value="Work">Work</option> 
-                <option value="Other">Other</option>
-            </select>
-            <button>test</button>
-            <button ng-click="vm.addTask(vm.newTodo)">Create New Task</button>
-        </form>
+        <md-card>        
+            <md-card-content>
+                <div layout="row">
+                    <md-input-container>
+                        <label>Write Task Here</label>
+                        <input type="text" ng-model="vm.newTodo.task" required>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Location of Event</label>
+                        <input type="text" ng-model="vm.newTodo.location">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Additional Notes</label>
+                        <input type="text" ng-model="vm.newTodo.notes">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Catagory</label>
+                        <md-select ng-model="vm.newTodo.catagory" required>
+                            <md-option value="Home">Home</md-option>
+                            <md-option value="School">School</md-option>
+                            <md-option value="Work">Work</md-option> 
+                            <md-option value="Other">Other</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <label><md-button ng-click="vm.addTask(vm.newTodo)">Create New Task</md-button></label>
+                </div>
+            </md-card-content>
+        </md-card>              
         <br>
-        <br>
-        <hr>
-        <h3>All Created Tasks</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Task</th>
-                    <th>Location</th>
-                    <th>Notes</th>
-                    <th>Remove</th>
-                    <th>Catagory</th>
-                </tr>
-            </thead>
-            <tbody>
-            <span>Filter: </span><select ng-model="searchedCatagory">
-                <option value=""/option> <!-- not selected / blank option -->
-                <option value="Home">Home</option>
-                <option value="School">School</option>
-                <option value="Work">Work</option>
-                <option value="Other">Other</option>
-            </select> 
-                <tr ng-class="{completed: task.completed}"ng-repeat="task in vm.todoArray |orderBy : 'completed'| filter:{catagory:searchedCatagory}">
-                    <td><md-button ng-click="vm.markComplete(task._id, !task.completed)">Finished</md-button></td>
-                    <td >{{task.task}}</td>
-                    <td>{{task.location}}</td>
-                    <td>{{task.notes}}</td>
-                    <td>{{task.completed}}</td>
-                    <td>{{task.catagory}}</td>
-                    <td><md-button mat-raised-button ng-click="vm.deleteTask(task._id)">Remove</md-button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
+        <md-card>
+            <md-card-content>
+                <div layout="column">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">All Created Tasks</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Task</th>
+                                <th>Location</th>
+                                <th>Notes</th>
+                                <th>Catagory</th>
+                            </tr>
+                        </thead>
+                        <span>Filter: 
+                        <md-input-containter>
+                            <label>Catagory</label>
+                            <md-select ng-model="searchedCatagory" required>
+                                <md-option value=""></md-option>
+                                <md-option value="Home">Home</md-option>
+                                <md-option value="School">School</md-option>
+                                <md-option value="Work">Work</md-option> 
+                                <md-option value="Other">Other</md-option>
+                            </md-select>
+                        </md-input-containter>
+                        </span>
+                        <tbody>
+                            <tr ng-class="{completed: task.completed}"ng-repeat="task in vm.todoArray |orderBy : 'completed'| filter:{catagory:searchedCatagory}">
+                                <td><md-button ng-click="vm.markComplete(task._id, !task.completed)">Mark Complete</md-button></td>
+                                <td >{{task.task}}</td>
+                                <td>{{task.location}}</td>
+                                <td>{{task.notes}}</td>
+                                <td>{{task.catagory}}</td>
+                                <td><md-button mat-raised-button ng-click="vm.deleteTask(task._id)">Remove</md-button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </md-card-content>
+        </md-card>
+    </div>     
 </body>
 </html>

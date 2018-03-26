@@ -1,7 +1,15 @@
 .completed {
     background-color: lightgrey;
+    text-decoration: line-through
     
 }
+.container{
+    background-color: bisque;
+}
 table{
-    border-collapse: collapse
+    border-collapse: collapse;
+
+}
+h1, form, th{
+    text-align: center;
 }

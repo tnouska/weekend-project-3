@@ -49,7 +49,7 @@ todoApp.controller('TodoController', ['$http', function ($http) {
                         console.log('error in deleteTask: ', error);
                     })
                 } else {
-                    swal("Your imaginary file is safe!");
+                    swal("Your task has not changed.");
                 }
             });
 
